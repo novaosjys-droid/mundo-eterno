@@ -9,146 +9,973 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+    
     <style>
-        :root {
-            --color-bg: #FAF7F4;
-            --color-text: #2B2622;
-            --color-text-soft: rgba(43,38,34,0.65);
-            --color-accent: #C2714F;
-            --color-accent-dark: #9C5A3E;
-        }
-        body { font-family: 'Inter', sans-serif; background: var(--color-bg); color: var(--color-text); }
+        body { font-family: 'Inter', sans-serif; }
         .font-serif { font-family: 'Playfair Display', serif; }
+        
+        /* Transición suave para las fotos verticales */
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .slide.active {
+            opacity: 1;
+        }
 
-        .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease-in-out; }
-        .slide.active { opacity: 1; }
-
-        .no-scroll { overflow: hidden; }
-
-        .chip-row { scrollbar-width: none; -ms-overflow-style: none; }
-        .chip-row::-webkit-scrollbar { display: none; }
-
-        :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
-
-        @media (prefers-reduced-motion: reduce) {
-            * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        /* Estilo para ocultar el scrollbar mientras carga */
+        .no-scroll {
+            overflow: hidden;
         }
     </style>
 </head>
-<body class="tracking-wide no-scroll">
+<body class="bg-white text-stone-900 tracking-wide no-scroll">
 
-    <div id="loading-screen" class="fixed inset-0 z-[9999] flex flex-col items-center justify-center transition-all duration-700 ease-in-out" style="background:var(--color-bg);">
+    <div id="loading-screen" class="fixed inset-0 bg-white z-[9999] flex flex-col items-center justify-center transition-all duration-700 ease-in-out">
         <div class="text-center animate-pulse">
-            <h2 class="font-serif text-3xl md:text-4xl font-semibold tracking-widest uppercase mb-1" style="color:var(--color-text);">Mundo Eterno</h2>
-            <span class="text-[10px] uppercase tracking-[0.4em]" style="color:var(--color-accent);">Anchetas & detalles de autor</span>
+            <h2 class="font-serif text-3xl md:text-4xl font-semibold tracking-widest uppercase text-stone-900 mb-1">Mundo Eterno</h2>
+            <span class="text-[9px] uppercase tracking-[0.5em] text-stone-400 block pl-2">Anchetas & Detalles de Autor</span>
         </div>
     </div>
 
-    <nav class="sticky top-0 z-50 border-b" style="border-color:rgba(43,38,34,0.08); background:rgba(250,247,244,0.92); backdrop-filter:blur(8px);">
-        <div class="container mx-auto flex items-center justify-between gap-4 px-6 py-3">
-            <a href="#" class="flex items-center gap-3">
-                <img src="img/logo.png" alt="Logo Mundo Eterno" class="h-10 w-10 md:h-11 md:w-11 object-contain">
-                <span class="flex flex-col leading-tight">
-                    <span class="font-serif text-lg md:text-xl font-semibold uppercase tracking-widest" style="color:var(--color-text);">Mundo Eterno</span>
-                    <span class="text-[10px] tracking-wide" style="color:var(--color-accent);">Anchetas & detalles de autor</span>
-                </span>
-            </a>
-            <a href="https://wa.me/573105005918?text=Hola,%20quiero%20más%20información%20sobre%20sus%20anchetas" target="_blank" rel="noopener" class="hidden sm:flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-white transition-colors" style="background:#25D366;" onmouseover="this.style.background='#1ebe5a'" onmouseout="this.style.background='#25D366'">
-                <i class="fab fa-whatsapp" aria-hidden="true"></i>
-                <span>Escríbenos</span>
-            </a>
+    <nav class="border-b border-stone-200 py-4 px-6 sticky top-0 bg-white/90 backdrop-blur-md z-50">
+        <div class="container mx-auto flex flex-row items-center justify-between gap-4">
+            <div class="text-left">
+                <span class="font-serif text-xl md:text-2xl font-semibold tracking-widest uppercase block">Mundo Eterno</span>
+                <p class="text-[10px] uppercase tracking-widest text-stone-400">Anchetas & Detalles de Autor</p>
+            </div>
+            <div class="flex items-center">
+                <img src="img/logo.png" alt="Logo Mundo Eterno" class="h-10 md:h-12 w-auto object-contain">
+            </div>
         </div>
     </nav>
 
-    <header>
-
-        <div class="hero-slider relative md:hidden h-[44vh] min-h-[300px] max-h-[420px] overflow-hidden">
-            <div class="carrusel-container absolute inset-0">
-                <div class="slide active"><img src="./img/banner1.webp" alt="Mundo Eterno, anchetas de autor" class="w-full h-full object-cover"></div>
-                <div class="slide"><img src="./img/banner2.webp" alt="Anchetas de autor para fechas especiales" class="w-full h-full object-cover"></div>
-                <div class="slide"><img src="./img/banner3.webp" alt="Detalles personalizados Mundo Eterno" class="w-full h-full object-cover"></div>
-            </div>
-            <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(43,38,34,0.75) 0%, rgba(43,38,34,0.18) 55%, rgba(43,38,34,0) 75%);"></div>
-            <div class="absolute inset-x-0 bottom-0 p-5">
-                <span class="block text-[11px] tracking-[0.25em] text-white/70 mb-1">Boutique digital</span>
-                <h1 class="font-serif italic text-2xl text-white mb-1">El arte de obsequiar</h1>
-                <p class="text-xs text-white/80 max-w-xs leading-relaxed">Anchetas finas y regalos personalizados para fechas que merecen un detalle distinto.</p>
-            </div>
-            <div class="absolute bottom-4 right-4 flex gap-2">
-                <button data-dir="-1" aria-label="Foto anterior" class="w-8 h-8 rounded-full border border-white/40 text-white flex items-center justify-center bg-black/20"><i class="fas fa-chevron-left text-[10px]"></i></button>
-                <button data-dir="1" aria-label="Foto siguiente" class="w-8 h-8 rounded-full border border-white/40 text-white flex items-center justify-center bg-black/20"><i class="fas fa-chevron-right text-[10px]"></i></button>
-            </div>
+    <header class="grid grid-cols-1 md:grid-cols-2 w-full min-h-[70vh] bg-stone-50 border-b border-stone-200">
+        
+        <div class="flex flex-col justify-center items-center md:items-start text-center md:text-left p-8 md:p-16 lg:p-24 bg-white">
+            <span class="text-[10px] uppercase tracking-[0.3em] text-stone-400 mb-3 block">Boutique Digital</span>
+            <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl font-light italic mb-6 leading-tight text-stone-900">
+                El arte de obsequiar
+            </h1>
+            <p class="text-xs md:text-sm uppercase tracking-widest text-stone-500 leading-relaxed font-light max-w-md">
+                Curaduría exclusiva de anchetas finas y regalos personalizados diseñados para perdurar en la memoria.
+            </p>
         </div>
 
-        <div class="hidden md:grid md:grid-cols-2 border-b" style="border-color:rgba(43,38,34,0.08); min-height:64vh;">
-            <div class="flex flex-col justify-center p-12 lg:p-20">
-                <span class="text-xs tracking-[0.25em] mb-3" style="color:var(--color-accent);">Boutique digital</span>
-                <h1 class="font-serif text-4xl lg:text-5xl italic mb-5 leading-tight" style="color:var(--color-text);">El arte de obsequiar</h1>
-                <p class="text-sm leading-relaxed max-w-md" style="color:var(--color-text-soft);">Curaduría de anchetas finas y regalos personalizados, pensados para fechas que merecen un detalle distinto.</p>
-                <a href="#catalogo" class="mt-8 inline-flex items-center gap-2 text-sm font-medium" style="color:var(--color-accent);">
-                    Ver catálogo <i class="fas fa-arrow-down text-xs"></i>
-                </a>
+        <div class="relative w-full h-[50vh] md:h-auto overflow-hidden bg-stone-100">
+            
+            <div id="carrusel-container" class="absolute inset-0">
+                <div class="slide active">
+                    <img src="./img/banner1.webp" alt="Mundo Eterno Regalos Exclusivos" class="w-full h-full object-cover">
+                </div>
+                <div class="slide">
+                    <img src="./img/banner2.webp" alt="Anchetas de Autor" class="w-full h-full object-cover">
+                </div>
+                <div class="slide">
+                    <img src="./img/banner3.webp" alt="Detalles Minimalistas" class="w-full h-full object-cover">
+                </div>
             </div>
-            <div class="hero-slider relative overflow-hidden" style="background:#E9DED2;">
-                <div class="carrusel-container absolute inset-0">
-                    <div class="slide active"><img src="./img/banner1.webp" alt="Mundo Eterno, anchetas de autor" class="w-full h-full object-cover"></div>
-                    <div class="slide"><img src="./img/banner2.webp" alt="Anchetas de autor para fechas especiales" class="w-full h-full object-cover"></div>
-                    <div class="slide"><img src="./img/banner3.webp" alt="Detalles personalizados Mundo Eterno" class="w-full h-full object-cover"></div>
-                </div>
-                <div class="absolute bottom-6 right-6 flex gap-3">
-                    <button data-dir="-1" aria-label="Foto anterior" class="w-10 h-10 border border-white/50 text-white hover:border-white rounded-full flex items-center justify-center bg-black/20 hover:bg-black/40 transition"><i class="fas fa-chevron-left text-xs"></i></button>
-                    <button data-dir="1" aria-label="Foto siguiente" class="w-10 h-10 border border-white/50 text-white hover:border-white rounded-full flex items-center justify-center bg-black/20 hover:bg-black/40 transition"><i class="fas fa-chevron-right text-xs"></i></button>
-                </div>
+
+            <div class="absolute bottom-6 right-6 z-30 flex gap-4">
+                <button onclick="cambiarSlide(-1)" class="w-10 h-10 border border-white/50 text-white hover:border-white rounded-full flex items-center justify-center bg-black/20 hover:bg-black/40 transition focus:outline-none">
+                    <i class="fas fa-chevron-left text-xs"></i>
+                </button>
+                <button onclick="cambiarSlide(1)" class="w-10 h-10 border border-white/50 text-white hover:border-white rounded-full flex items-center justify-center bg-black/20 hover:bg-black/40 transition focus:outline-none">
+                    <i class="fas fa-chevron-right text-xs"></i>
+                </button>
             </div>
         </div>
 
     </header>
 
-    <section class="container mx-auto px-6 pt-7 pb-3" id="catalogo">
-        <div class="chip-row flex gap-2 overflow-x-auto pb-1" id="filtros-principales">
-            <button data-cat="todos" class="filtro-chip whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200">Todos</button>
-            <button data-cat="cumpleanos" class="filtro-chip whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200">Cumpleaños</button>
-            <button data-cat="graduacion" class="filtro-chip whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200">Graduación</button>
-            <button data-cat="comunion" class="filtro-chip whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200">Primera comunión</button>
-            <button data-cat="madres" class="filtro-chip whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200">Día de las madres</button>
-            <button data-cat="padres" class="filtro-chip whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200">Día de los padres</button>
-            <button data-cat="amor" class="filtro-chip whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200">Amor y amistad</button>
+    <section class="container mx-auto px-6 py-10">
+        <div class="flex flex-wrap justify-center gap-6 text-xs uppercase tracking-widest font-medium">
+            <button onclick="filtrar('todos')" class="filter-btn border-b-2 border-stone-900 pb-1 text-stone-900 transition-all">Todos</button>
+            <button onclick="filtrar('cumpleanos')" class="filter-btn text-stone-400 hover:text-stone-900 pb-1 transition-all">Cumpleaños</button>
+            <button onclick="filtrar('graduacion')" class="filter-btn text-stone-400 hover:text-stone-900 pb-1 transition-all">Graduación</button>
+            <button onclick="filtrar('comunion')" class="filter-btn text-stone-400 hover:text-stone-900 pb-1 transition-all">Primera Comunión</button>
+            <button onclick="filtrar('madres')" class="filter-btn text-stone-400 hover:text-stone-900 pb-1 transition-all">Día de Madres</button>
+            <button onclick="filtrar('padres')" class="filter-btn text-stone-400 hover:text-stone-900 pb-1 transition-all">Día de Padres</button>
+            <button onclick="filtrar('amor')" class="filter-btn text-stone-400 hover:text-stone-900 pb-1 transition-all">Amor y Amistad</button>
         </div>
-        <div class="chip-row flex gap-2 overflow-x-auto pt-2" id="subfiltros"></div>
     </section>
 
-    <main class="container mx-auto px-6 pb-20">
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6" id="grid-productos">
-%%CARDS%%
-        </div>
-    </main>
-
-    <footer class="border-t" style="border-color:rgba(43,38,34,0.08);">
-        <div class="container mx-auto px-6 py-10 grid gap-8 sm:grid-cols-3 text-sm" style="color:var(--color-text-soft);">
-            <div>
-                <span class="font-serif text-lg italic block mb-2" style="color:var(--color-text);">Mundo Eterno</span>
-                <p>Anchetas finas y regalos personalizados, pensados para fechas que merecen un detalle distinto.</p>
+    <main class="container mx-auto px-6 pb-24">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="cumpleanos">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/cumpleaños1.webp" alt="Ancheta Cumpleaños" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Cumpleaños</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Bandeja de dulces</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Bandeja%20de%20dulces" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div>
-                <p class="font-medium mb-2" style="color:var(--color-text);">Atención</p>
-                <p class="mb-1"><i class="fas fa-clock mr-2" aria-hidden="true"></i>Lunes a sábado, 9:00 a.m. – 6:00 p.m.</p>
-                <p><i class="fas fa-location-dot mr-2" aria-hidden="true"></i>Medellín y área metropolitana</p>
-            </div>
-            <div>
-                <p class="font-medium mb-2" style="color:var(--color-text);">Síguenos</p>
-                <a href="https://wa.me/573105005918" target="_blank" rel="noopener" class="flex items-center gap-2 mb-2 hover:underline"><i class="fab fa-whatsapp" aria-hidden="true"></i>WhatsApp</a>
-                <a href="#" target="_blank" rel="noopener" class="flex items-center gap-2 hover:underline"><i class="fab fa-instagram" aria-hidden="true"></i>Instagram</a>
-            </div>
-        </div>
-        <div class="border-t py-4 text-center text-xs" style="border-color:rgba(43,38,34,0.08); color:rgba(43,38,34,0.5);">© 2026 Mundo Eterno — Anchetas & detalles de autor</div>
-    </footer>
 
-    <a href="https://wa.me/573105005918?text=Hola,%20quiero%20más%20información%20sobre%20sus%20anchetas" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp" class="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-transform hover:scale-105" style="background:#25D366;">
-        <i class="fab fa-whatsapp text-2xl text-white" aria-hidden="true"></i>
-    </a>
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="cumpleanos">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6"> 
+                    <img src="./img/cumpleaños2.webp" alt="Ancheta Cumpleaños" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Cumpleaños</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos de cumpleaños</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20de%20cumpleaños" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-    <script>
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="cumpleanos">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6"> 
+                    <img src="./img/cumpleaños3.webp" alt="Ancheta Cumpleaños" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Cumpleaños</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos de cumpleaños</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20de%20cumpleaños" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="cumpleanos">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/cumpleaños4.webp" alt="Ancheta Cumpleaños" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Cumpleaños</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos de cumpleaños</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20de%20cumpleaños" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="cumpleanos">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6"> 
+                    <img src="./img/cumpleaños5.webp" alt="Ancheta Cumpleaños" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Cumpleaños</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ancheta de cumpleaños</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ancheta%20de%20cumpleaños" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="cumpleanos">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/cumpleaños6.webp" alt="Ancheta Cumpleaños" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Cumpleaños</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos de cumpleaños</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20de%20cumpleaños" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="cumpleanos">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/cumpleaños7.webp" alt="Ancheta Cumpleaños" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Cumpleaños</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos de cumpleaños</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20de%20cumpleaños" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="cumpleanos">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/cumpleaños8.webp" alt="Ancheta Cumpleaños" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Cumpleaños</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos de cumpleaños</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20de%20cumpleaños" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="cumpleanos">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/cumpleaños9.webp" alt="Ancheta Cumpleaños" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Cumpleaños</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos de cumpleaños</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20de%20cumpleaños" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="cumpleanos">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/cumpleaños10.webp" alt="Ancheta Cumpleaños" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Cumpleaños</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos de cumpleaños</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20de%20cumpleaños" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="cumpleanos">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/cumpleaños11.webp" alt="Ancheta Cumpleaños" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Cumpleaños</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Mini Vanity</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Mini%20Vanity" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="graduacion">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/graduacion1.webp" alt="Regalo Graduación" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Graduación</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos de graduación</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20de%20graduación" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="graduacion">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/graduacion2.webp" alt="Regalo Graduación" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Graduación</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos de graduación</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20de%20graduación" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="graduacion">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/graduacion3.webp" alt="Regalo Graduación" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Graduación</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos de graduación</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20de%20graduación" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="graduacion">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/graduacion4.webp" alt="Regalo Graduación" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Graduación</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Mini ancheta de graduación</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Mini%20ancheta%20de%20graduación" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="graduacion">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/graduacion5.webp" alt="Regalo Graduación" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Graduación</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Mini ancheta de graduación</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Mini%20ancheta%20de%20graduación" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="graduacion">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/graduacion6.webp" alt="Regalo Graduación" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Graduación</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Mini ancheta de graduación</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Mini%20ancheta%20de%20graduación" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="graduacion">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/graduacion7.webp" alt="Regalo Graduación" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Graduación</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ancheta grande de graduación</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ancheta%20grande%20de%20graduación" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="graduacion">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/graduacion8.webp" alt="Regalo Graduación" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Graduación</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Birrete personalizado</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Birrete%20personalizado" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="graduacion">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/graduacion9.webp" alt="Regalo Graduación" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Graduación</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos de graduación</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20de%20graduación" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="graduacion">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/graduacion10.webp" alt="Regalo Graduación" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Graduación</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos de graduación</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20de%20graduación" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="graduacion">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/graduacion11.webp" alt="Regalo Graduación" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Graduación</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos de graduación</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20de%20graduación" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="comunion">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/comunion1.webp" alt="Primera Comunión" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Primera Comunión</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos de Primera Comunión</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20de%20Primera%20Comunión" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="comunion">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/comunion2.webp" alt="Primera Comunión" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Primera Comunión</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos de Primera Comunión</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20de%20Primera%20Comunión" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="comunion">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/comunion3.webp" alt="Primera Comunión" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Primera Comunión</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos de Primera Comunión</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20de%20Primera%20Comunión" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="comunion">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/comunion4.webp" alt="Primera Comunión" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Primera Comunión</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos de Primera Comunión</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20de%20Primera%20Comunión" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="comunion">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/comunion5.webp" alt="Primera Comunión" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Primera Comunión</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos de Primera Comunión</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20de%20Primera%20Comunión" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="madres">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/madre1.webp" alt="Día de las Madres" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Día de Madres</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos día de la madre</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20día%20de%20la%20madre" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="madres">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/madre2.webp" alt="Día de las Madres" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Día de Madres</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos día de la madre</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20día%20de%20la%20madre" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="madres">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/madre3.webp" alt="Día de las Madres" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Día de Madres</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Cilindro</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Cilindro" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="madres">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/madre4.webp" alt="Día de las Madres" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Día de Madres</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Caja de dulces</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Caja%20de%20dulces" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="madres">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/madre5.webp" alt="Día de las Madres" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Día de Madres</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos día de la madre</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20día%20de%20la%20madre" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="madres">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/madre6.webp" alt="Día de las Madres" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Día de Madres</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramo de rosas naturales</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramo%20de%20rosas%20naturales" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="madres">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/madre7.webp" alt="Día de las Madres" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Día de Madres</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Desayuno sorpresa</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Desayuno%20sorpresa" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="madres">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/madre8.webp" alt="Día de las Madres" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Día de Madres</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos día de la madre</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20día%20de%20la%20madre" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="madres">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/madre9.webp" alt="Día de las Madres" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Día de Madres</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramos día de la madre</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramos%20día%20de%20la%20madre" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="madres">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/madre10.webp" alt="Día de las Madres" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Día de Madres</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Detalle día de la madre</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Detalle%20día%20de%20la%20madre" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="padres">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/padre2.webp" alt="Día de los Padres" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Día de Padres</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ancheta de coronitas</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ancheta%20de%20coronitas" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="padres">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/padre1.webp" alt="Día de los Padres" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Día de Padres</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Caja pequeña de chocolates</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Caja%20pequeña%20de%20chocolates" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="padres">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/padre3.webp" alt="Día de los Padres" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Día de Padres</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Caja de dulces</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Caja%20de%20dulces" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="padres">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/padre4.webp" alt="Día de los Padres" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Día de Padres</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ancheta de dulces</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ancheta%20de%20dulces" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="padres">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/padre5.webp" alt="Día de los Padres" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Día de Padres</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ancheta pequeña de licor</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ancheta%20pequeña%20de%20licor" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="padres">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/padre6.webp" alt="Día de los Padres" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Día de Padres</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ancheta de licor</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ancheta%20de%20licor" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="amor">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/amor1.webp" alt="Ancheta Amor y Amistad" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Amor y Amistad</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ancheta personalizada</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ancheta%20personalizada" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="amor">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/amor2.webp" alt="Ancheta Amor y Amistad" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Amor y Amistad</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramo amor y amistad</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramo%20amor%20y%20amistad" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="amor">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/amor3.webp" alt="Ancheta Amor y Amistad" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Amor y Amistad</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ancheta de oso y rosas naturales</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ancheta%20de%20oso%20y%20rosas" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="amor">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/amor4.webp" alt="Ancheta Amor y Amistad" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Amor y Amistad</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Cilindro de Stitch</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Cilindro%20de%20Stitch" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="amor">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/amor5.webp" alt="Ancheta Amor y Amistad" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Amor y Amistad</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Cilindro de Hello Kitty</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Cilindro%20de%20Hello%20Kitty" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="amor">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/amor6.webp" alt="Ancheta Amor y Amistad" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Amor y Amistad</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Girasol + caja de dulces</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Girasol%20%2B%20caja%20de%20dulces" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="amor">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/amor7.webp" alt="Ancheta Amor y Amistad" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Amor y Amistad</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramo Hot Wheels</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramo%20Hot%20Wheels" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="amor">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/amor8.webp" alt="Ancheta Amor y Amistad" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Amor y Amistad</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Corazón de chocolates</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Corazón%20de%20chocolates" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="amor">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/amor9.webp" alt="Ancheta Amor y Amistad" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Amor y Amistad</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramo Hot Wheels</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramo%20Hot%20Wheels" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="amor">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/amor10.webp" alt="Ancheta Amor y Amistad" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Amor y Amistad</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramo Amor y Amistad</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramo%20Amor%20y%20Amistad" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="amor">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/amor11.webp" alt="Ancheta Amor y Amistad" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Amor y Amistad</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramo de chocolates</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramo%20de%20chocolates" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="amor">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/amor12.webp" alt="Ancheta Amor y Amistad" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Amor y Amistad</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramo Dinero</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramo%20Dinero" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="amor">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/amor13.webp" alt="Ancheta Amor y Amistad" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Amor y Amistad</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramo Princesa</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramo%20Princesa" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="amor">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/amor14.webp" alt="Ancheta Amor y Amistad" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Amor y Amistad</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramo Stitch</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramo%20Stitch" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="producto group flex flex-col border border-stone-100 p-4 transition-all duration-300 hover:border-stone-300" data-categoria="amor">
+                <div class="overflow-hidden bg-stone-100 aspect-[3/4] mb-6">
+                    <img src="./img/amor15.webp" alt="Ancheta Amor y Amistad" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                </div>
+                <div class="flex-grow flex flex-col">
+                    <span class="text-[10px] uppercase tracking-widest text-stone-400 mb-1">Categoría: Amor y Amistad</span>
+                    <h3 class="font-serif text-xl font-medium text-stone-900 mb-2">Ramo Princesa</h3>
+                    <div class="mt-auto pt-4 border-t border-stone-100 flex items-center justify-end">
+                        <a href="https://wa.me/573105005918?text=Hola,%20deseo%20solicitar%20información%20sobre:%20Ramo%20Princesa" target="_blank" class="w-full text-center text-xs uppercase tracking-widest border border-stone-900 px-4 py-2.5 bg-stone-900 text-white hover:bg-transparent hover:text-stone-900 transition-all duration-300">
+                            Solicitar pedido
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div> </main> <script>
         // --- CONTROL PANTALLA DE CARGA ---
         window.addEventListener('load', () => {
             const loader = document.getElementById('loading-screen');
@@ -158,100 +985,47 @@
             }, 500);
         });
 
-        // --- CARRUSELES (móvil y escritorio, cada uno independiente) ---
-        function initHeroSlider(root) {
-            const slides = root.querySelectorAll('.slide');
-            let current = 0;
-            function show(index) {
-                slides[current].classList.remove('active');
-                current = (index + slides.length) % slides.length;
-                slides[current].classList.add('active');
-            }
-            root.querySelectorAll('[data-dir]').forEach(btn => {
-                btn.addEventListener('click', () => show(current + parseInt(btn.dataset.dir, 10)));
+        // --- CARRUSEL VERTICAL ---
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(index) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (index + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function cambiarSlide(direccion) {
+            showSlide(currentSlide + direccion);
+        }
+
+        setInterval(() => {
+            cambiarSlide(1);
+        }, 5000);
+
+        // --- FILTROS ---
+        function filtrar(categoria) {
+            const productos = document.querySelectorAll('.producto');
+            const botones = document.querySelectorAll('.filter-btn');
+            
+            botones.forEach(btn => {
+                if(btn.getAttribute('onclick').includes(`'${categoria}'`)) {
+                    btn.classList.remove('text-stone-400');
+                    btn.classList.add('text-stone-900', 'border-b-2', 'border-stone-900');
+                } else {
+                    btn.classList.remove('text-stone-900', 'border-b-2', 'border-stone-900');
+                    btn.classList.add('text-stone-400');
+                }
             });
-            setInterval(() => show(current + 1), 5000);
-        }
-        document.querySelectorAll('.hero-slider').forEach(initHeroSlider);
 
-        // --- FILTROS PRINCIPALES + SUB-FILTROS POR NOMBRE ---
-        const productos = Array.from(document.querySelectorAll('.producto'));
-        const subfiltrosEl = document.getElementById('subfiltros');
-        const CHIP_CLASS = 'filtro-chip whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-colors duration-200';
-
-        let categoriaActiva = 'todos';
-        let nombreActivo = 'todos';
-
-        function pintarChip(btn, activo) {
-            if (activo) {
-                btn.style.background = 'var(--color-accent)';
-                btn.style.color = '#fff';
-                btn.style.borderColor = 'var(--color-accent)';
-            } else {
-                btn.style.background = 'transparent';
-                btn.style.color = 'var(--color-text)';
-                btn.style.borderColor = 'rgba(43,38,34,0.18)';
-            }
-        }
-
-        function renderSubfiltros() {
-            subfiltrosEl.innerHTML = '';
-            if (categoriaActiva === 'todos') return;
-
-            const nombres = [...new Set(
-                productos
-                    .filter(p => p.dataset.categoria === categoriaActiva)
-                    .map(p => p.dataset.nombre)
-            )];
-
-            if (nombres.length <= 1) return;
-
-            const todosBtn = document.createElement('button');
-            todosBtn.className = CHIP_CLASS;
-            todosBtn.textContent = 'Todos';
-            todosBtn.addEventListener('click', () => seleccionarNombre('todos', todosBtn));
-            subfiltrosEl.appendChild(todosBtn);
-            pintarChip(todosBtn, true);
-
-            nombres.forEach(nombre => {
-                const b = document.createElement('button');
-                b.className = CHIP_CLASS;
-                b.textContent = nombre;
-                b.addEventListener('click', () => seleccionarNombre(nombre, b));
-                subfiltrosEl.appendChild(b);
-                pintarChip(b, false);
+            productos.forEach(prod => {
+                if (categoria === 'todos' || prod.getAttribute('data-categoria') === categoria) {
+                    prod.style.display = 'flex';
+                } else {
+                    prod.style.display = 'none';
+                }
             });
         }
-
-        function seleccionarNombre(nombre, btnSeleccionado) {
-            nombreActivo = nombre;
-            Array.from(subfiltrosEl.children).forEach(chip => pintarChip(chip, chip === btnSeleccionado));
-            aplicarFiltro();
-        }
-
-        function seleccionarCategoria(categoria, btnSeleccionado) {
-            categoriaActiva = categoria;
-            nombreActivo = 'todos';
-            document.querySelectorAll('#filtros-principales button').forEach(chip => pintarChip(chip, chip === btnSeleccionado));
-            renderSubfiltros();
-            aplicarFiltro();
-        }
-
-        function aplicarFiltro() {
-            productos.forEach(p => {
-                const coincideCategoria = categoriaActiva === 'todos' || p.dataset.categoria === categoriaActiva;
-                const coincideNombre = nombreActivo === 'todos' || p.dataset.nombre === nombreActivo;
-                p.style.display = (coincideCategoria && coincideNombre) ? '' : 'none';
-            });
-        }
-
-        document.querySelectorAll('#filtros-principales button').forEach(btn => {
-            btn.addEventListener('click', () => seleccionarCategoria(btn.dataset.cat, btn));
-        });
-
-        // Estado inicial
-        pintarChip(document.querySelector('#filtros-principales button[data-cat="todos"]'), true);
-        document.querySelectorAll('#filtros-principales button:not([data-cat="todos"])').forEach(b => pintarChip(b, false));
     </script>
 </body>
 </html>
